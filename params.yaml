@@ -4,7 +4,7 @@ base:
     target_col: TARGET
 
 data_source:
-    local: data_given/winequality-red.csv
+    local: given_data/winequality-red.csv
 
 load_data:
     raw_data: data/raw/wine_quality.csv
