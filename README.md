@@ -15,4 +15,6 @@ created a template file
     this file contains all the files and directory details of the project folder
     running this file would create data directories, params.yaml, dvc.yaml
     
+dvc init
+dvc add given_data/winequality-red.csv
 
