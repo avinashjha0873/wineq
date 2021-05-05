@@ -1,0 +1,23 @@
+base:
+    project: winequality-project
+    random_state: 7
+    target_col: TARGET
+
+data_source:
+    local: data_given/winequality-red.csv
+
+load_data:
+    raw_data: data/raw/wine_quality.csv
+    
+split_data:
+    train_path: data/processed/train_wine_quality.csv
+    test_path: data/processed/test_wine_quality.csv
+    test_size: 0.2
+
+estimators:
+    LinearRegression:
+        params:
+            fit_intercept: True
+            Normalize: False
+            
+model_dir: saved_models
