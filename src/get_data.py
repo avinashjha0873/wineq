@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-
-# read params
-# process
-# return dataframe
-
-
+## read params
+## process
+## return dataframe
+import os
 import yaml
 import pandas as pd
 import argparse
@@ -14,19 +12,17 @@ def read_params(config_path):
         config = yaml.safe_load(yaml_file)
     return config
 
-
 def get_data(config_path):
     config = read_params(config_path)
-    data_path = config['data_source']['local']
-    df = pd.read_csv(data_path, sep=',', encoding = 'utf-8')
+    # print(config)
+    data_path = config["data_source"]["local"]
+    df = pd.read_csv(data_path, sep=",", encoding='utf-8')
     return df
 
 
-if (__name__=="__main__"):
+
+if __name__=="__main__":
     args = argparse.ArgumentParser()
     args.add_argument("--config", default="params.yaml")
-    #print(args)
     parsed_args = args.parse_args()
-    data = get_data(config_path = parsed_args.config)
-    
-
+    data = get_data(config_path=parsed_args.config)

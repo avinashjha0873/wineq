@@ -18,3 +18,6 @@ created a template file
 dvc init
 dvc add given_data/winequality-red.csv
 
+created a get_data function that that takes file from given_data folder and stores it in a df
+
+
