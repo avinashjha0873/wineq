@@ -5,12 +5,11 @@ import os
 import yaml
 import joblib
 import numpy as np
-import jsonify
 
 params_path = "params.yaml"
 webapp_root = "webapp"
 
-static_dir = os.path.join(webapp_root, "statis")
+static_dir = os.path.join(webapp_root, "static")
 template_dir = os.path.join(webapp_root, "templates")
 
 app = Flask(__name__, static_folder = static_dir, template_folder=template_dir)
@@ -22,15 +21,15 @@ def read_params(config_path):
 
 def predict(data):
     config = read_params(params_path)
-    model_dir_path = config["webapp_model_dir"]
+    model_dir_path = config["webapp_model_dir"] 
     model = joblib.load(model_dir_path)
     prediction = model.predict(data)
-    print(prediction)
     return prediction[0]
 
 def api_response(request):
     try:
-        data = np.array(list[request.json.values()])
+
+        data = np.array([list(request.json.values())])
         response = predict(data)
         response = {"response":response}
         return response
@@ -43,15 +42,18 @@ def api_response(request):
 def index():
     if(request.method == "POST"):
         try:
+            print("enter try")
             if(request.form):
                 data = dict(request.form).values()
                 data = [list(map(float, data))]
                 response = predict(data)
+                print("response: ", response)
                 return render_template("index.html", response=response)
             
             elif(request.json):
+                print("enter elif")
                 response = api_response(request)
-                return jsonify(response)
+                return response
         except Exception as e:
             print(e)
             error = {"error": "Na chalro"}
