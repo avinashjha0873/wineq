@@ -35,3 +35,29 @@ stages:
     - path: data/processed/train_wine_quality.csv
       md5: d0b71d42e4c11f988fb63f29d7d96abc
       size: 19139
+  train_and_evaluate:
+    cmd: python src/train_and_evaluate.py --config=params.yaml
+    deps:
+    - path: data/processed/test_wine_quality.csv
+      md5: c37ae028dfd0458a8e0083a099d3038c
+      size: 76093
+    - path: data/processed/train_wine_quality.csv
+      md5: d0b71d42e4c11f988fb63f29d7d96abc
+      size: 19139
+    - path: src/get_data.py
+      md5: efd8b8cd2710f1a92888f1806fcb938c
+      size: 701
+    - path: src/train_and_evaluate.py
+      md5: 2bd4b837bd8f4b0215b600a567475277
+      size: 2535
+    params:
+      params.yaml:
+        estimators.LinearRegression.params.fit_intercept: true
+        estimators.LinearRegression.params.normalize: false
+    outs:
+    - path: reports/params.json
+      md5: 2a41b123bd272216ca48e9b0801aac07
+      size: 56
+    - path: reports/scores.json
+      md5: 11ae6e8c145021183d57e41bdc736bfd
+      size: 99

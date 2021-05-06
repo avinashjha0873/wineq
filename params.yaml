@@ -1,7 +1,7 @@
 base:
     project: winequality-project
     random_state: 7
-    target_col: TARGET
+    target_col: quality
 
 data_source:
     local: given_data/winequality-red.csv
@@ -18,6 +18,10 @@ estimators:
     LinearRegression:
         params:
             fit_intercept: True
-            Normalize: False
-            
+            normalize: False
+                
 model_dir: saved_models
+
+reports:
+    params: reports/params.json
+    scores: reports/scores.json
