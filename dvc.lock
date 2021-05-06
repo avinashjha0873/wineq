@@ -48,8 +48,8 @@ stages:
       md5: efd8b8cd2710f1a92888f1806fcb938c
       size: 701
     - path: src/train_and_evaluate.py
-      md5: 2bd4b837bd8f4b0215b600a567475277
-      size: 2535
+      md5: d6a2eaa2c4ab7f8ddd772e55f73750f7
+      size: 2630
     params:
       params.yaml:
         estimators.LinearRegression.params.fit_intercept: true

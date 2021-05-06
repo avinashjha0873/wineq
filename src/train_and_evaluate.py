@@ -12,6 +12,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import json
+import joblib
 
 
 def train_and_evaluate(config_path):
@@ -22,6 +23,7 @@ def train_and_evaluate(config_path):
     target = config["base"]["target_col"]
     fit_intercept = config["estimators"]["LinearRegression"]["params"]["fit_intercept"]
     normalize = config["estimators"]["LinearRegression"]["params"]["normalize"]
+    models_dir = config["models_dir"]
     
     train = pd.read_csv(train_data_path)
     test = pd.read_csv(test_data_path)
@@ -39,14 +41,8 @@ def train_and_evaluate(config_path):
     
     (mae, mse, r2) = evaluate(test_y, pred_test)
     
-    print("Linear Regression Model: ")
-    print("fit intercept:", fit_intercept)
-    print("normalize: ", normalize)
-    print("#############")
-    print("mse: ", mse)
-    print("mae: ", mae)
-    print("r2: ", r2)
-    
+
+    ######################################################
     
     scores_file = config["reports"]["scores"]
     
@@ -67,7 +63,13 @@ def train_and_evaluate(config_path):
             }
         
         json.dump(params, f, indent=4)
-        
+     #################################################################   
+     
+    os.makedirs(models_dir, exist_ok=True)
+    model_path = os.path.join(models_dir, "model.joblib")
+    
+    joblib.dump(model, model_path)
+
       
         
 def evaluate(actual, pred):
@@ -81,5 +83,3 @@ if __name__=="__main__":
     args.add_argument("--config", default = "params.yaml")
     parsed_args = args.parse_args()
     train_and_evaluate(config_path=parsed_args.config)
-    
-    
